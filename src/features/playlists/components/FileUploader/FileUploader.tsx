@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-// import { useDispatch } from "react-redux";
-// import { setTrack } from "../../player/playerSlice";
 
 interface fileUploaderProps {
-  onTrackUpload: (url: string, name: string) => void;
+  onTrackUpload: (url: string, name: string, id: number) => void;
 }
 
 export const FileUploader = ({ onTrackUpload }: fileUploaderProps) => {
@@ -11,9 +9,10 @@ export const FileUploader = ({ onTrackUpload }: fileUploaderProps) => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      const trackId = Date.now();
       const trackUrl = URL.createObjectURL(file);
-      onTrackUpload(trackUrl, file.name);
-      setLoadFile(!loadFile);
+      onTrackUpload(trackUrl, file.name, trackId);
+      setLoadFile(true);
     }
   };
 

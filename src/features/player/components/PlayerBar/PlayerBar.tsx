@@ -32,8 +32,11 @@ export const PlayerBar = ({
       <audio ref={audioRef} src={currentTrackUrl} />
 
       <div>
-        <strong>Сейчас играет:</strong>
-        {trackName}
+        {isPlaying ? (
+          <>
+            <strong>Сейчас играет:</strong> {trackName}
+          </>
+        ) : null}
       </div>
 
       <div>
