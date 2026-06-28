@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { PlayerBar } from "./features/player/components/PlayerBar/PlayerBar";
-import { FileUploader } from "./features/playlists/components/FileUploader";
+import { FileUploader } from "./features/playlists/components/FileUploader/FileUploader";
 
 function App() {
   const [currentTrackUrl, setCurrentTrackUrl] = useState<string | null>(null);
