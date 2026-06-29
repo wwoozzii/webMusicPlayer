@@ -28,9 +28,7 @@ function App() {
 
   const handleAddTrack = () => {
     if (!currentTrackUrl || !trackName || !trackId) return;
-
-    const isDublicate = tracks.some((t) => t.id === trackId);
-    if (isDublicate) return;
+    if (tracks.some((t) => t.id === trackId)) return;
 
     const newTrack: Track = {
       id: trackId,
