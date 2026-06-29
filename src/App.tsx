@@ -20,6 +20,7 @@ function App() {
     setCurrentTrackUrl(url);
     setTrackName(name);
     setTrackId(id);
+    console.log(trackName);
   };
 
   const handleTogglePlay = () => {
@@ -48,7 +49,12 @@ function App() {
         isPlaying={isPlaying}
         onTogglePlay={handleTogglePlay}
       />
-      <TrackList onAddTrack={handleAddTrack} tracks={tracks} />
+      <TrackList
+        onAddTrack={handleAddTrack}
+        tracks={tracks}
+        onToggleTrack={handleCurrentTrack}
+        onTogglePlay={handleTogglePlay}
+      />
     </div>
   );
 }
