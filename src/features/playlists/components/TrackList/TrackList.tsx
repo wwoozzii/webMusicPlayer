@@ -1,34 +1,26 @@
-import type { Track } from "../../../../App";
+import { usePlayerStore } from "../../../player/playerStore";
 
-interface TrackListProps {
-  onAddTrack: () => void;
-  tracks: Track[];
-  onToggleTrack: (url: string, name: string, id: number) => void;
-  onTogglePlay: () => void;
-}
+export const TrackList = () => {
+  const tracks = usePlayerStore((state) => state.tracks);
+  const currentTrack = usePlayerStore((state) => state.currentTrack);
+  const isPlaying = usePlayerStore((state) => state.isPlaying);
+  const toggleTrack = usePlayerStore((state) => state.toggleTrack);
 
-export const TrackList = ({
-  onAddTrack,
-  tracks,
-  onToggleTrack,
-  onTogglePlay,
-}: TrackListProps) => {
-  const igr = (url: string, name: string, id: number) => {
-    onToggleTrack(url, name, id);
-    onTogglePlay();
-  };
   return (
     <div>
-      <button onClick={onAddTrack}>Добавить</button>
+      <ul>
+        {tracks.map((track) => {
+          const isCurrent = currentTrack?.id === track.id;
+          const buttonLabel = isCurrent && isPlaying ? "⏸ Pause" : "▶ Play";
 
-      {tracks.map((prev) => (
-        <li key={prev.id}>
-          <strong>{prev.name}</strong>
-          <button onClick={() => igr(prev.url, prev.name, prev.id)}>
-            play
-          </button>
-        </li>
-      ))}
+          return (
+            <li key={track.id}>
+              <strong>{track.name}</strong>
+              <button onClick={() => toggleTrack(track)}>{buttonLabel}</button>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 };

@@ -1,18 +1,16 @@
 import React, { useState } from "react";
+import { usePlayerStore } from "../../../player/playerStore";
 
-interface fileUploaderProps {
-  onTrackUpload: (url: string, name: string, id: number) => void;
-}
-
-export const FileUploader = ({ onTrackUpload }: fileUploaderProps) => {
+export const FileUploader = () => {
+  const addTrack = usePlayerStore((state) => state.addTrack);
   const [loadFile, setLoadFile] = useState<boolean>(false);
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      const trackId = Date.now();
       const trackUrl = URL.createObjectURL(file);
-      onTrackUpload(trackUrl, file.name, trackId);
-      setLoadFile(true);
+      addTrack({ url: trackUrl, name: file.name });
+      setLoadFile(!loadFile);
     }
   };
 

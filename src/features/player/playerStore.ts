@@ -14,7 +14,9 @@ interface Playerstate {
   addTrack: (track: Omit<Track, "id">) => void;
   setCurrentTrack: (track: Track) => void;
   togglePlay: () => void;
+  toggleTrack: (track: Track) => void;
   nextTrack: () => void;
+  prevTrack: () => void;
 }
 
 export const usePlayerStore = create<Playerstate>((set, get) => ({
@@ -25,7 +27,7 @@ export const usePlayerStore = create<Playerstate>((set, get) => ({
   addTrack: (newTrack) =>
     set((state) => ({
       tracks: [...state.tracks, { ...newTrack, id: crypto.randomUUID() }],
-    })),
+    })), //принимает массив с url и name из fileUploader и вставляет в массив треков tracks[]
 
   setCurrentTrack: (track) =>
     set({
@@ -37,15 +39,40 @@ export const usePlayerStore = create<Playerstate>((set, get) => ({
       isPlaying: !state.isPlaying,
     })),
 
+  toggleTrack: (track) =>
+    set((state) => {
+      if (state.currentTrack?.id === track.id) {
+        return { isPlaying: !state.isPlaying };
+      }
+
+      return {
+        currentTrack: track,
+        isPlaying: true,
+      };
+    }),
+
   nextTrack: () => {
     const { tracks, currentTrack } = get();
     if (!currentTrack) return;
 
     const currentIndex = tracks.findIndex((t) => t.id === currentTrack.id);
-    const nextIndex = (currentIndex + 1) % tracks.length; // Если трек последний, вернется к первому
+    const nextIndex = (currentIndex + 1) % tracks.length;
 
     set({
       currentTrack: tracks[nextIndex],
+      isPlaying: true,
+    });
+  },
+
+  prevTrack: () => {
+    const { tracks, currentTrack } = get();
+    if (!currentTrack) return;
+
+    const currentIndex = tracks.findIndex((t) => t.id === currentTrack.id);
+    const prevIndex = (currentIndex + tracks.length - 1) % tracks.length;
+
+    set({
+      currentTrack: tracks[prevIndex],
       isPlaying: true,
     });
   },
