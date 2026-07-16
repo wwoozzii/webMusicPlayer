@@ -1,6 +1,7 @@
 //сборка всех компонентов
 import { useEffect, useRef } from "react";
 import { usePlayerStore } from "../../playerStore";
+import { VolumeBar } from "../VolumeBar/VolumeBar";
 
 export const PlayerBar = () => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -9,17 +10,24 @@ export const PlayerBar = () => {
   const togglePlay = usePlayerStore((state) => state.togglePlay);
   const nextTrack = usePlayerStore((state) => state.nextTrack);
   const prevTrack = usePlayerStore((state) => state.prevTrack);
+  const currentVolume = usePlayerStore((state) => state.currentVolume);
 
   useEffect(() => {
     if (!audioRef.current) return;
 
     if (isPlaying) {
       audioRef.current.play().catch((err) => console.log("ошибка", err));
-      console.log(isPlaying);
     } else {
       audioRef.current.pause();
     }
   }, [isPlaying, currentTrack]);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = currentVolume;
+    }
+  }, [currentVolume]);
+
   if (!currentTrack) return null;
 
   return (
@@ -35,7 +43,6 @@ export const PlayerBar = () => {
       }}
     >
       <audio ref={audioRef} src={currentTrack.url} />{" "}
-      {/* Автопереключение по окончании трека! */}
       <div>
         <strong>Играет:</strong> {currentTrack.name}
       </div>
@@ -46,6 +53,9 @@ export const PlayerBar = () => {
       <button onClick={nextTrack} style={{ marginLeft: "10px" }}>
         ⏭ След.
       </button>
+      <div>
+        <VolumeBar />
+      </div>
     </div>
   );
 };

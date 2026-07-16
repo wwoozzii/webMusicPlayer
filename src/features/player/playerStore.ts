@@ -9,10 +9,12 @@ interface Playerstate {
   tracks: Track[];
   currentTrack: Track | null;
   isPlaying: boolean;
+  currentVolume: number;
 
   //экшены
   addTrack: (track: Omit<Track, "id">) => void;
   setCurrentTrack: (track: Track) => void;
+  setCurrentVolume: (volume: number) => void;
   togglePlay: () => void;
   toggleTrack: (track: Track) => void;
   nextTrack: () => void;
@@ -23,6 +25,7 @@ export const usePlayerStore = create<Playerstate>((set, get) => ({
   tracks: [],
   currentTrack: null,
   isPlaying: false,
+  currentVolume: 0.08,
 
   addTrack: (newTrack) =>
     set((state) => ({
@@ -34,6 +37,12 @@ export const usePlayerStore = create<Playerstate>((set, get) => ({
       currentTrack: track,
       isPlaying: true,
     }),
+
+  setCurrentVolume: (volume) =>
+    set({
+      currentVolume: volume,
+    }),
+
   togglePlay: () =>
     set((state) => ({
       isPlaying: !state.isPlaying,
