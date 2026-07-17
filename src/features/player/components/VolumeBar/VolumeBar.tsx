@@ -13,13 +13,12 @@ export const VolumeBar = () => {
     (clientX: number) => {
       if (!sliderRef.current) return;
 
-      const rect = sliderRef.current.getBoundingClientRect();
-      const relativeX = clientX - rect.left;
-      let newVolume = relativeX / rect.width;
-      newVolume = Math.max(0, Math.min(1, newVolume));
+      const rect = sliderRef.current.getBoundingClientRect(); //узнает точные размеры и положение блока
+      const relativeX = clientX - rect.left; //узнает положение мыши при клике
+      let newVolume = relativeX / rect.width; //положение мыши в процентах относительно ширины(длины) блока, т.е новую громкость
+      newVolume = Math.max(0, Math.min(1, newVolume)); //установка лимитов положения
 
-      //округление числа
-      setCurrentVolume(Math.round(newVolume * 100) / 100);
+      setCurrentVolume(Math.round(newVolume * 100) / 100); //округление числа до сотых
     },
     [setCurrentVolume],
   );
