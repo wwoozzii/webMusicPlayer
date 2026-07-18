@@ -1,5 +1,6 @@
 //сборка всех компонентов
 import { useEffect, useRef } from "react";
+import { useAudioSync } from "../../hooks/useAudioSync";
 import { usePlayerStore } from "../../playerStore";
 import { VolumeBar } from "../VolumeBar/VolumeBar";
 
@@ -12,15 +13,7 @@ export const PlayerBar = () => {
   const prevTrack = usePlayerStore((state) => state.prevTrack);
   const currentVolume = usePlayerStore((state) => state.currentVolume);
 
-  useEffect(() => {
-    if (!audioRef.current) return;
-
-    if (isPlaying) {
-      audioRef.current.play().catch((err) => console.log("ошибка", err));
-    } else {
-      audioRef.current.pause();
-    }
-  }, [isPlaying, currentTrack]);
+  useAudioSync(audioRef);
 
   useEffect(() => {
     if (audioRef.current) {
