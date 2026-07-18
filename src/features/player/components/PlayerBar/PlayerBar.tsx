@@ -3,15 +3,12 @@ import { useRef } from "react";
 import { useAudioSync } from "../../hooks/useAudioSync";
 import { useAudioVolume } from "../../hooks/useAudioVolume";
 import { usePlayerStore } from "../../playerStore";
+import { Controls } from "../Controls/Controls";
 import { VolumeBar } from "../VolumeBar/VolumeBar";
 
 export const PlayerBar = () => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const isPlaying = usePlayerStore((state) => state.isPlaying);
   const currentTrack = usePlayerStore((state) => state.currentTrack);
-  const togglePlay = usePlayerStore((state) => state.togglePlay);
-  const nextTrack = usePlayerStore((state) => state.nextTrack);
-  const prevTrack = usePlayerStore((state) => state.prevTrack);
   const currentVolume = usePlayerStore((state) => state.currentVolume);
 
   useAudioSync(audioRef);
@@ -56,15 +53,7 @@ export const PlayerBar = () => {
             alignItems: "center",
           }}
         >
-          <button onClick={prevTrack} style={{ marginRight: "10px" }}>
-            ⏮ Пред.
-          </button>
-          <button onClick={togglePlay}>
-            {isPlaying ? "⏸ Пауза" : "▶ Играть"}
-          </button>
-          <button onClick={nextTrack} style={{ marginLeft: "10px" }}>
-            ⏭ След.
-          </button>
+          <Controls />
         </div>
 
         <div style={{ flex: "1", display: "flex", justifyContent: "flex-end" }}>
