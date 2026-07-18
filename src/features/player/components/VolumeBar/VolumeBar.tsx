@@ -47,26 +47,28 @@ export const VolumeBar = () => {
   }, [isDragging, updateVolume]);
 
   return (
-    <div style={{ width: "200px" }}>
-      <div
-        ref={sliderRef}
-        style={{
-          height: "10px",
-          background: "#ccc",
-          cursor: "pointer",
-          position: "relative",
-        }}
-        onMouseDown={handleMouseDown}
-      >
+    <div>
+      <div style={{ width: "200px" }}>
         <div
+          ref={sliderRef}
           style={{
-            width: `${currentVolume * 100}%`,
-            height: "100%",
-            background: "black",
+            height: "10px",
+            background: "#ccc",
+            cursor: "pointer",
+            position: "relative",
           }}
-        />
+          onMouseDown={handleMouseDown}
+        >
+          <div
+            style={{
+              width: `${currentVolume * 100}%`,
+              height: "100%",
+              background: "black",
+            }}
+          />
+        </div>
+        <span>{Math.round(currentVolume * 100)}%</span>
       </div>
-      <span>{Math.round(currentVolume * 100)}%</span>
     </div>
   );
 };

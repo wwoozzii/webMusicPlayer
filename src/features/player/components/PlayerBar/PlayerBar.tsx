@@ -40,21 +40,52 @@ export const PlayerBar = () => {
         background: "#222",
         color: "#fff",
         padding: "20px",
+        display: "flex",
+        flexDirection: "column",
+        gap: "15px",
       }}
     >
-      <audio ref={audioRef} src={currentTrack.url} />{" "}
-      <div>
-        <strong>Играет:</strong> {currentTrack.name}
+      <audio ref={audioRef} src={currentTrack.url} />
+
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          width: "100%",
+        }}
+      >
+        <div style={{ flex: "1", minWidth: "150px" }}>
+          <strong>Играет:</strong> {currentTrack.name}
+        </div>
+
+        <div
+          style={{
+            flex: "1",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <button onClick={prevTrack} style={{ marginRight: "10px" }}>
+            ⏮ Пред.
+          </button>
+          <button onClick={togglePlay}>
+            {isPlaying ? "⏸ Пауза" : "▶ Играть"}
+          </button>
+          <button onClick={nextTrack} style={{ marginLeft: "10px" }}>
+            ⏭ След.
+          </button>
+        </div>
+
+        <div style={{ flex: "1", display: "flex", justifyContent: "flex-end" }}>
+          <VolumeBar />
+        </div>
       </div>
-      <button onClick={prevTrack} style={{ marginRight: "10px" }}>
-        ⏮ Пред.
-      </button>
-      <button onClick={togglePlay}>{isPlaying ? "⏸ Пауза" : "▶ Играть"}</button>
-      <button onClick={nextTrack} style={{ marginLeft: "10px" }}>
-        ⏭ След.
-      </button>
-      <div>
-        <VolumeBar />
+
+      <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+        {/* <TrackBar /> */}
+        <div style={{ color: "#555", fontSize: "12px" }}></div>
       </div>
     </div>
   );
