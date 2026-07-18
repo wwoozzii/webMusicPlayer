@@ -4,6 +4,7 @@ import { useAudioSync } from "../../hooks/useAudioSync";
 import { useAudioVolume } from "../../hooks/useAudioVolume";
 import { usePlayerStore } from "../../playerStore";
 import { Controls } from "../Controls/Controls";
+import { ProgressBar } from "../ProgressBar/ProgressBar";
 import { TrackInfo } from "../TrackInfo/TrackInfo";
 import { VolumeBar } from "../VolumeBar/VolumeBar";
 
@@ -63,7 +64,7 @@ export const PlayerBar = () => {
       </div>
 
       <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
-        {/* <TrackBar /> */}
+        <ProgressBar />
         <div style={{ color: "#555", fontSize: "12px" }}></div>
       </div>
     </div>
