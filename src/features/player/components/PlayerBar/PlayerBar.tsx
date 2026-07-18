@@ -4,6 +4,7 @@ import { useAudioSync } from "../../hooks/useAudioSync";
 import { useAudioVolume } from "../../hooks/useAudioVolume";
 import { usePlayerStore } from "../../playerStore";
 import { Controls } from "../Controls/Controls";
+import { TrackInfo } from "../TrackInfo/TrackInfo";
 import { VolumeBar } from "../VolumeBar/VolumeBar";
 
 export const PlayerBar = () => {
@@ -42,7 +43,7 @@ export const PlayerBar = () => {
         }}
       >
         <div style={{ flex: "1", minWidth: "150px" }}>
-          <strong>Играет:</strong> {currentTrack.name}
+          <TrackInfo />
         </div>
 
         <div
