@@ -3,6 +3,7 @@ interface Track {
   id: string;
   name: string;
   url: string;
+  duration: number;
 }
 
 interface Playerstate {
@@ -13,7 +14,7 @@ interface Playerstate {
   currentTime: number;
 
   //экшены
-  addTrack: (track: Omit<Track, "id">) => void;
+  addTrack: (track: Track) => void;
   setCurrentTrack: (track: Track) => void;
   setCurrentVolume: (volume: number) => void;
   setCurrentTime: (time: number) => void;
@@ -33,7 +34,7 @@ export const usePlayerStore = create<Playerstate>((set, get) => ({
 
   addTrack: (newTrack) =>
     set((state) => ({
-      tracks: [...state.tracks, { ...newTrack, id: crypto.randomUUID() }],
+      tracks: [...state.tracks, { ...newTrack }],
     })), //принимает массив с url и name из fileUploader и вставляет в массив треков tracks[]
 
   setCurrentTrack: (track) =>

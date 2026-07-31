@@ -1,3 +1,4 @@
+import { parseBlob } from "music-metadata";
 import React, { useState } from "react";
 import { usePlayerStore } from "../../../player/playerStore";
 
@@ -5,13 +6,22 @@ export const FileUploader = () => {
   const addTrack = usePlayerStore((state) => state.addTrack);
   const [loadFile, setLoadFile] = useState<boolean>(false);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      const trackUrl = URL.createObjectURL(file);
-      addTrack({ url: trackUrl, name: file.name.replace(".mp3", "") });
-      setLoadFile(!loadFile);
-    }
+    if (!file) return;
+
+    const metadata = await parseBlob(file);
+    const trackUrl = URL.createObjectURL(file);
+
+    console.log(metadata.common.title);
+    addTrack({
+      url: trackUrl,
+      name: metadata.common.title || file.name.replace(".mp3", ""),
+      id: crypto.randomUUID(),
+      duration: metadata.format.duration ?? 0,
+    });
+    console.log(metadata.common);
+    setLoadFile(!loadFile);
   };
 
   return (
