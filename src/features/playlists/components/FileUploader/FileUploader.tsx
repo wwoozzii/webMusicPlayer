@@ -9,9 +9,7 @@ export const FileUploader = () => {
     const file = e.target.files?.[0];
     if (file) {
       const trackUrl = URL.createObjectURL(file);
-      //сменить способ получения данных
-      //addTrack({ url: trackUrl, name: file.name.replace('.mp3" , "")})
-      addTrack({ url: trackUrl, name: file.name });
+      addTrack({ url: trackUrl, name: file.name.replace(".mp3", "") });
       setLoadFile(!loadFile);
     }
   };
