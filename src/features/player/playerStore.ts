@@ -28,7 +28,7 @@ export const usePlayerStore = create<Playerstate>((set, get) => ({
   tracks: [],
   currentTrack: null,
   isPlaying: false,
-  currentVolume: 0.08,
+  currentVolume: 1,
   currentTime: 0,
   maxTimeCurrentTrack: 0,
 
