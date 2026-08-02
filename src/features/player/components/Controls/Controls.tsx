@@ -6,6 +6,8 @@ export const Controls = () => {
   const prevTrack = usePlayerStore((state) => state.prevTrack);
   const isPlaying = usePlayerStore((state) => state.isPlaying);
 
+  //перекдлючение play/start находится в хуке useAudioSync
+
   return (
     <div>
       <button onClick={prevTrack} style={{ marginRight: "10px" }}>
