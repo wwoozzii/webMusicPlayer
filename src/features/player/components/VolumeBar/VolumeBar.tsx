@@ -15,10 +15,10 @@ export const VolumeBar = () => {
 
       const rect = sliderRef.current.getBoundingClientRect(); //узнает точные размеры и положение блока
       const relativeX = clientX - rect.left; //узнает положение мыши при клике
-      let newVolume = relativeX / rect.width; //положение мыши в процентах относительно ширины(длины) блока, т.е новую громкость
-      newVolume = Math.max(0, Math.min(1, newVolume)); //установка лимитов положения
+      const rawVolume = relativeX / rect.width; //положение мыши в процентах относительно ширины(длины) блока, т.е новую громкость
+      const newVolume = Math.max(0, Math.min(1, rawVolume)); //установка лимитов положения
 
-      setCurrentVolume(Math.round(newVolume * 100) / 100); //округление числа до сотых
+      setCurrentVolume(newVolume);
     },
     [setCurrentVolume],
   );
@@ -56,6 +56,7 @@ export const VolumeBar = () => {
             background: "#ccc",
             cursor: "pointer",
             position: "relative",
+            userSelect: "none",
           }}
           onMouseDown={handleMouseDown}
         >
