@@ -15,7 +15,7 @@ export const TrackList = () => {
 
           return (
             <li key={track.id}>
-              <strong>{track.name}</strong>
+              <strong>{`${track.name} — ${track.author}`}</strong>
               <button onClick={() => toggleTrack(track)}>{buttonLabel}</button>
             </li>
           );
