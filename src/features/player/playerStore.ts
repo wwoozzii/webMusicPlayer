@@ -2,6 +2,7 @@ import { create } from "zustand";
 interface Track {
   id: string;
   name: string;
+  author: string;
   url: string;
   duration: number;
 }
@@ -12,6 +13,7 @@ interface Playerstate {
   isPlaying: boolean;
   currentVolume: number;
   currentTime: number;
+  duration: number;
 
   //экшены
   addTrack: (track: Track) => void;
@@ -31,6 +33,7 @@ export const usePlayerStore = create<Playerstate>((set, get) => ({
   currentVolume: 1,
   currentTime: 0,
   maxTimeCurrentTrack: 0,
+  duration: 0,
 
   addTrack: (newTrack) =>
     set((state) => ({

@@ -17,10 +17,12 @@ export const FileUploader = () => {
     addTrack({
       url: trackUrl,
       name: metadata.common.title || file.name.replace(".mp3", ""),
+      author: metadata.common.artist ?? "",
       id: crypto.randomUUID(),
       duration: metadata.format.duration ?? 0,
     });
     console.log(metadata.common);
+    console.log(metadata.format);
     setLoadFile(!loadFile);
   };
 
