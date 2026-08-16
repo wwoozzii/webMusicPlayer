@@ -1,39 +1,60 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { usePlayerStore } from "../../playerStore";
+import { formatTime } from "../../utils/formatTime";
 
 export const ProgressBar = () => {
-  const sliderRef = useRef<HTMLDivElement>(null);
+  const duration = usePlayerStore((state) => state.duration);
+  const seek = usePlayerStore((state) => state.seek);
+  const progressBarRef = useRef<HTMLDivElement>(null);
   const currentTime = usePlayerStore((state) => state.currentTime);
-  const setCurrentTime = usePlayerStore((state) => state.setCurrentTime);
 
   const [isDragging, setIsDragging] = useState<boolean>(false);
+  const [dragTime, setDragTime] = useState<number>(0);
 
-  const updateTime = useCallback(
-    (clientX: number) => {
-      if (!sliderRef.current) return;
-      //позже переписать в хук
-      const rect = sliderRef.current.getBoundingClientRect();
-      const reletiveX = clientX - rect.left;
-      let newTime = reletiveX / rect.width;
-      newTime = Math.max(0, Math.min(1, newTime));
+  const displayTime = isDragging ? dragTime : currentTime;
+  const progressPercent = duration > 0 ? (displayTime / duration) * 100 : 0;
 
-      setCurrentTime(Math.round(newTime * 100) / 100);
+  // расчет времени по кордам Х
+  const calculateTimeFromX = useCallback(
+    (clientX: number): number => {
+      if (!progressBarRef.current || duration <= 0) return 0;
+
+      const cube = progressBarRef.current.getBoundingClientRect();
+      const clickX = clientX - cube.left;
+      const width = cube.width;
+
+      const ratio = Math.max(0, Math.min(1, clickX / width));
+      const targetTime = ratio * duration;
+      console.log(targetTime);
+      return targetTime;
     },
-    [setCurrentTime],
+    [duration],
   );
 
+  // начало перетаскивания
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (duration <= 0) return;
+
     setIsDragging(true);
-    updateTime(e.clientX);
+    const newTime = calculateTimeFromX(e.clientX);
+    setDragTime(newTime);
   };
 
-  //позже переписать в хук
+  // события мыши
   useEffect(() => {
+    if (!isDragging) return;
+    // движение
     const handleMouseMove = (e: MouseEvent) => {
-      if (isDragging) updateTime(e.clientX);
+      const newTime = calculateTimeFromX(e.clientX);
+      setDragTime(newTime);
     };
+    // отпускание
+    const handleMouseUp = (e: MouseEvent) => {
+      const finalTime = calculateTimeFromX(e.clientX);
 
-    const handleMouseUp = () => setIsDragging(false);
+      seek(finalTime);
+      setIsDragging(false);
+    };
 
     if (isDragging) {
       document.addEventListener("mousemove", handleMouseMove);
@@ -44,31 +65,78 @@ export const ProgressBar = () => {
       document.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseup", handleMouseUp);
     };
-  }, [isDragging, updateTime]);
+  }, [isDragging, calculateTimeFromX, seek]);
 
   return (
-    <div>
-      <div style={{ width: "200px" }}>
+    <div
+      className="player-progress-container"
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: "12px",
+        userSelect: "none",
+      }}
+    >
+      {/* 1. Время слева */}
+      <span className="time-display">{formatTime(displayTime)}</span>
+
+      {/* 2. Полоса прогресса */}
+      <div
+        ref={progressBarRef}
+        className="progress-bar-wrapper"
+        onMouseDown={handleMouseDown}
+        style={{
+          position: "relative",
+          flexGrow: 1,
+          height: "16px",
+          width: "200px",
+          display: "flex",
+          alignItems: "center",
+          cursor: "pointer",
+        }}
+      >
         <div
-          ref={sliderRef}
+          className="progress-bar-bg"
           style={{
-            height: "10px",
-            background: "#ccc",
-            cursor: "pointer",
             position: "relative",
+            width: "100%",
+            height: "4px",
+            backgroundColor: "#3e3e3e",
+            borderRadius: "2px",
           }}
-          onMouseDown={handleMouseDown}
         >
+          {/* Линия заполнения */}
           <div
+            className="progress-bar-fill"
             style={{
-              width: `${currentTime * 100}%`,
+              width: `${progressPercent}%`,
               height: "100%",
-              background: "black",
+              backgroundColor: "#1db954",
+              borderRadius: "2px",
+            }}
+          />
+
+          {/* Ползунок Thumb */}
+          <div
+            className="progress-bar-thumb"
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: `${progressPercent}%`,
+              transform: "translate(-50%, -50%)",
+              width: isDragging ? "14px" : "12px",
+              height: isDragging ? "14px" : "12px",
+              backgroundColor: "#ffffff",
+              borderRadius: "50%",
+              boxShadow: "0 2px 4px rgba(0,0,0,0.5)",
+              transition: isDragging ? "none" : "width 0.1s, height 0.1s",
             }}
           />
         </div>
-        <span>{Math.round(currentTime * 100)}%</span>
       </div>
+
+      {/* 3. Длительность справа */}
+      <span className="time-display">{formatTime(duration)}</span>
     </div>
   );
 };
