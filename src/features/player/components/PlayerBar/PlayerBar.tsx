@@ -11,10 +11,11 @@ import { VolumeBar } from "../VolumeBar/VolumeBar";
 export const PlayerBar = () => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const currentTrack = usePlayerStore((state) => state.currentTrack);
-  const currentVolume = usePlayerStore((state) => state.currentVolume);
+  const setCurrentTime = usePlayerStore((state) => state.setCurrentTime);
+  const setDuration = usePlayerStore((state) => state.setDuration);
 
   useAudioSync(audioRef);
-  useAudioVolume(audioRef, currentVolume);
+  useAudioVolume(audioRef);
 
   if (!currentTrack) return null;
 
@@ -33,7 +34,19 @@ export const PlayerBar = () => {
         gap: "15px",
       }}
     >
-      <audio ref={audioRef} src={currentTrack.url} />
+      <audio
+        ref={audioRef}
+        src={currentTrack?.url}
+        onLoadedMetadata={(e) => {
+          const audioLength = e.currentTarget.duration;
+          setCurrentTime(0);
+          setDuration(audioLength);
+        }}
+        onTimeUpdate={(e) => {
+          const currentSeconds = e.currentTarget.currentTime;
+          setCurrentTime(currentSeconds);
+        }}
+      />
 
       <div
         style={{
