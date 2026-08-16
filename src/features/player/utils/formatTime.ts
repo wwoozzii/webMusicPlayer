@@ -8,7 +8,6 @@ export const formatTime = (seconds: number) => {
   const formattedSecs = String(secs).padStart(2, "0");
 
   //позже сделать обработку часа
-  console.log(`${formattedMins}:${formattedSecs}`);
 
   return `${formattedMins}:${formattedSecs}`;
 };
