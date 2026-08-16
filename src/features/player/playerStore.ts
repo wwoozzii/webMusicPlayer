@@ -14,6 +14,7 @@ interface Playerstate {
   currentVolume: number;
   currentTime: number;
   duration: number;
+  seekTime: number | null;
 
   //экшены
   addTrack: (track: Track) => void;
@@ -24,6 +25,8 @@ interface Playerstate {
   toggleTrack: (track: Track) => void;
   nextTrack: () => void;
   prevTrack: () => void;
+  seek: (time: number) => void;
+  setDuration: (time: number) => void;
 }
 
 export const usePlayerStore = create<Playerstate>((set, get) => ({
@@ -34,6 +37,7 @@ export const usePlayerStore = create<Playerstate>((set, get) => ({
   currentTime: 0,
   maxTimeCurrentTrack: 0,
   duration: 0,
+  seekTime: null,
 
   addTrack: (newTrack) =>
     set((state) => ({
@@ -43,7 +47,9 @@ export const usePlayerStore = create<Playerstate>((set, get) => ({
   setCurrentTrack: (track) =>
     set({
       currentTrack: track,
+      duration: track.duration,
       isPlaying: true,
+      currentTime: 0,
     }),
 
   setCurrentVolume: (volume) =>
@@ -55,6 +61,11 @@ export const usePlayerStore = create<Playerstate>((set, get) => ({
     set({
       currentTime: time,
     }),
+
+  setDuration: (time: number) =>
+    set(() => ({
+      duration: time,
+    })),
 
   togglePlay: () =>
     set((state) => ({
@@ -70,6 +81,8 @@ export const usePlayerStore = create<Playerstate>((set, get) => ({
       return {
         currentTrack: track,
         isPlaying: true,
+        duration: track.duration,
+        currentTime: 0,
       };
     }),
 
@@ -80,9 +93,13 @@ export const usePlayerStore = create<Playerstate>((set, get) => ({
     const currentIndex = tracks.findIndex((t) => t.id === currentTrack.id);
     const nextIndex = (currentIndex + 1) % tracks.length;
 
+    const nextTrackItem = tracks[nextIndex];
+
     set({
       currentTrack: tracks[nextIndex],
       isPlaying: true,
+      currentTime: 0,
+      duration: nextTrackItem.duration,
     });
   },
 
@@ -93,9 +110,19 @@ export const usePlayerStore = create<Playerstate>((set, get) => ({
     const currentIndex = tracks.findIndex((t) => t.id === currentTrack.id);
     const prevIndex = (currentIndex + tracks.length - 1) % tracks.length;
 
+    const prevTrackItem = tracks[prevIndex];
     set({
       currentTrack: tracks[prevIndex],
       isPlaying: true,
+      currentTime: 0,
+      duration: prevTrackItem.duration,
+    });
+  },
+
+  seek(time) {
+    set({
+      seekTime: time,
+      currentTime: time,
     });
   },
 }));
