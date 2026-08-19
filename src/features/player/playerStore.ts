@@ -27,6 +27,7 @@ interface Playerstate {
   prevTrack: () => void;
   seek: (time: number) => void;
   setDuration: (time: number) => void;
+  handleTrackEnded: () => void;
 }
 
 export const usePlayerStore = create<Playerstate>((set, get) => ({
@@ -89,6 +90,10 @@ export const usePlayerStore = create<Playerstate>((set, get) => ({
   nextTrack: () => {
     const { tracks, currentTrack } = get();
     if (!currentTrack) return;
+    if (tracks.length <= 1) {
+      console.log("oops, it's the only track");
+      return;
+    }
 
     const currentIndex = tracks.findIndex((t) => t.id === currentTrack.id);
     const nextIndex = (currentIndex + 1) % tracks.length;
@@ -124,5 +129,14 @@ export const usePlayerStore = create<Playerstate>((set, get) => ({
       seekTime: time,
       currentTime: time,
     });
+  },
+
+  handleTrackEnded: () => {
+    const { tracks, togglePlay, nextTrack } = get();
+    if (tracks.length <= 1) {
+      togglePlay();
+    } else {
+      nextTrack();
+    }
   },
 }));

@@ -13,6 +13,7 @@ export const PlayerBar = () => {
   const currentTrack = usePlayerStore((state) => state.currentTrack);
   const setCurrentTime = usePlayerStore((state) => state.setCurrentTime);
   const setDuration = usePlayerStore((state) => state.setDuration);
+  const handleTrackEnded = usePlayerStore((state) => state.handleTrackEnded);
 
   useAudioSync(audioRef);
   useAudioVolume(audioRef);
@@ -46,6 +47,7 @@ export const PlayerBar = () => {
           const currentSeconds = e.currentTarget.currentTime;
           setCurrentTime(currentSeconds);
         }}
+        onEnded={handleTrackEnded}
       />
 
       <div
