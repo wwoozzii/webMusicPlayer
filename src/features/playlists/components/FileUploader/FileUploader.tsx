@@ -13,7 +13,6 @@ export const FileUploader = () => {
     const metadata = await parseBlob(file);
     const trackUrl = URL.createObjectURL(file);
 
-    console.log(metadata.common.title);
     addTrack({
       url: trackUrl,
       name: metadata.common.title || file.name.replace(".mp3", ""),
@@ -21,8 +20,6 @@ export const FileUploader = () => {
       id: crypto.randomUUID(),
       duration: metadata.format.duration ?? 0,
     });
-    console.log(metadata.common);
-    console.log(metadata.format);
     setLoadFile(!loadFile);
   };
 

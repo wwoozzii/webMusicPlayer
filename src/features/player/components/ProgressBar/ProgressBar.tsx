@@ -25,7 +25,6 @@ export const ProgressBar = () => {
 
       const ratio = Math.max(0, Math.min(1, clickX / width));
       const targetTime = ratio * duration;
-      console.log(targetTime);
       return targetTime;
     },
     [duration],
