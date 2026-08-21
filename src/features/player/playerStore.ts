@@ -111,6 +111,10 @@ export const usePlayerStore = create<Playerstate>((set, get) => ({
   prevTrack: () => {
     const { tracks, currentTrack } = get();
     if (!currentTrack) return;
+    if (tracks.length <= 1) {
+      console.log("oops, it's the only track");
+      return;
+    }
 
     const currentIndex = tracks.findIndex((t) => t.id === currentTrack.id);
     const prevIndex = (currentIndex + tracks.length - 1) % tracks.length;
