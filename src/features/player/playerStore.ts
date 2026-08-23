@@ -29,6 +29,7 @@ interface Playerstate {
   seekTime: number | null;
 
   //экшены
+  reset: () => void;
   addTrack: (track: Track) => void;
   setCurrentTrack: (track: Track) => void;
   setCurrentVolume: (volume: number) => void;
@@ -44,6 +45,8 @@ interface Playerstate {
 
 export const usePlayerStore = create<Playerstate>((set, get) => ({
   ...initialValues,
+
+  reset: () => set(initialValues),
 
   addTrack: (newTrack) =>
     set((state) => ({
