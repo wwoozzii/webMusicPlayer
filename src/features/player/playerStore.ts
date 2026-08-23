@@ -1,4 +1,16 @@
 import { create } from "zustand";
+
+const initialValues = {
+  tracks: [],
+  currentTrack: null,
+  isPlaying: false,
+  currentVolume: 1,
+  currentTime: 0,
+  maxTimeCurrentTrack: 0,
+  duration: 0,
+  seekTime: null,
+};
+
 interface Track {
   id: string;
   name: string;
@@ -31,14 +43,7 @@ interface Playerstate {
 }
 
 export const usePlayerStore = create<Playerstate>((set, get) => ({
-  tracks: [],
-  currentTrack: null,
-  isPlaying: false,
-  currentVolume: 1,
-  currentTime: 0,
-  maxTimeCurrentTrack: 0,
-  duration: 0,
-  seekTime: null,
+  ...initialValues,
 
   addTrack: (newTrack) =>
     set((state) => ({
