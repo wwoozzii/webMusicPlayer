@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   registerSchema,
@@ -16,6 +16,10 @@ export const RegisterForm: React.FC = () => {
     mode: "onBlur",
   });
 
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showConfirmPassword, setShowConfirmPassword] =
+    useState<boolean>(false);
+
   const onSubmit = (data: RegisterFormData) => {
     console.log("Данные регистрации:", data);
   };
@@ -23,26 +27,50 @@ export const RegisterForm: React.FC = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <div>
-        <label htmlFor="email">Email</label>
-        <input id="email" type="email" {...register("email")} />
-        {errors.email && <span>{errors.email.message}</span>}
+        <input
+          id="email"
+          type="email"
+          {...register("email")}
+          placeholder="Email"
+        />
+        {errors.email && (
+          <span style={{ display: "block" }}>{errors.email.message}</span>
+        )}
       </div>
 
       <div>
-        <label htmlFor="password">Пароль</label>
-        <input id="password" type="password" {...register("password")} />
-        {errors.password && <span>{errors.password.message}</span>}
+        <button type="button" onClick={() => setShowPassword((prev) => !prev)}>
+          {showPassword ? "hide" : "show"}
+        </button>
+
+        <input
+          id="password"
+          type={showPassword ? "text" : "password"}
+          {...register("password")}
+          placeholder="Password"
+        />
+        {errors.password && (
+          <span style={{ display: "block" }}>{errors.password.message}</span>
+        )}
       </div>
 
       <div>
-        <label htmlFor="confirmPassword">Повторите пароль</label>
+        <button
+          type="button"
+          onClick={() => setShowConfirmPassword((prev) => !prev)}
+        >
+          {showConfirmPassword ? "show" : "hide"}
+        </button>
         <input
           id="confirmPassword"
-          type="password"
+          type={showConfirmPassword ? "text" : "password"}
           {...register("confirmPassword")}
+          placeholder="Confirm Password"
         />
         {errors.confirmPassword && (
-          <span>{errors.confirmPassword.message}</span>
+          <span style={{ display: "block" }}>
+            {errors.confirmPassword.message}
+          </span>
         )}
       </div>
 
