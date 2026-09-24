@@ -1,4 +1,5 @@
 import { usePlayerStore } from "../../../player/playerStore";
+import { formatTime } from "../../../player/utils/formatTime";
 
 export const TrackList = () => {
   const tracks = usePlayerStore((state) => state.tracks);
@@ -15,7 +16,7 @@ export const TrackList = () => {
 
           return (
             <li key={track.id}>
-              <strong>{`${track.name} — ${track.author}`}</strong>
+              <strong>{`${track.name} — ${track.author} — ${formatTime(track.duration)} `}</strong>
               <button onClick={() => toggleTrack(track)}>{buttonLabel}</button>
             </li>
           );
