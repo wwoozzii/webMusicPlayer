@@ -1,15 +1,14 @@
 // src/App.tsx
 import React from "react";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
-import { RegisterForm } from "./features/auth/components/RegisterForm/RegisterForm";
 import { PlayerBar } from "./features/player/components/PlayerBar/PlayerBar";
 import { FileUploader } from "./features/playlists/components/FileUploader/FileUploader";
 import { TrackList } from "./features/playlists/components/TrackList/TrackList";
+import { RegisterPage } from "./pages/RegisterPage/RegisterPage";
 
 // временно
 const HomePage: React.FC = () => (
   <div>
-    <h2>Моя медиатека</h2>
     <FileUploader />
     <TrackList />
   </div>
@@ -42,7 +41,7 @@ export const App: React.FC = () => {
         <main style={{ padding: "20px" }}>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/register" element={<RegisterForm />} />
+            <Route path="/register" element={<RegisterPage />} />
           </Routes>
         </main>
 
