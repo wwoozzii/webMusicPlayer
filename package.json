@@ -14,6 +14,7 @@
     "@hookform/resolvers": "^5.9.1",
     "@reduxjs/toolkit": "^2.12.0",
     "@rolldown/binding-win32-x64-msvc": "^1.0.3",
+    "classnames": "^2.5.1",
     "music-metadata": "^11.14.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
