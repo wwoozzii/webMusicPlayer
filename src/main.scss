@@ -1,0 +1,44 @@
+@import url("https://fonts.googleapis.com/css2?family=Geist+Pixel&display=swap");
+
+:root {
+  --font-main: "Geist Pixel", sans-serif;
+  //   --bg-color: #121212;
+  --bg-color: rgb(0, 0, 0);
+
+  --text-color: #7bd506;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-main);
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings: "ELSH" 0;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  background: var(--text-color);
+  color: var(--bg-color);
+}
