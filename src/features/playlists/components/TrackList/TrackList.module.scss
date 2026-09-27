@@ -1,0 +1,17 @@
+.line {
+  margin-top: 7px;
+  display: flex;
+}
+
+.stroka {
+  display: grid;
+  grid-template-columns: repeat(3, 2fr);
+  width: 100%;
+  gap: 20px;
+  padding: 3px;
+
+  &.active {
+    background-color: #7bd506;
+    color: black;
+  }
+}
