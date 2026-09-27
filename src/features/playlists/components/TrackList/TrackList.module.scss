@@ -5,10 +5,11 @@
 
 .stroka {
   display: grid;
-  grid-template-columns: repeat(3, 2fr);
-  width: 100%;
-  gap: 20px;
+  grid-template-columns: 2fr 1.5fr 0.5fr;
+  gap: 2px;
+  width: 50%;
   padding: 3px;
+  align-items: center;
 
   &.active {
     background-color: #7bd506;
