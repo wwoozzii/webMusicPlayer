@@ -16,7 +16,8 @@ export const TrackList = () => {
         {tracks.map((track) => {
           const isCurrent = currentTrack?.id === track.id;
           const buttonLabel = isCurrent && isPlaying ? "⏸ Pause" : "▶ Play";
-          const choto = isCurrent && isPlaying ? currentTime : track.duration;
+          const trackTime =
+            isCurrent && isPlaying ? currentTime : track.duration;
 
           return (
             <li key={track.id} className={s.line}>
@@ -26,7 +27,7 @@ export const TrackList = () => {
               >
                 <span>{`${track.name}`}</span>
                 <span>{`${track.author}`}</span>
-                <span>{`${formatTime(choto)}`}</span>
+                <span>{`${formatTime(trackTime)}`}</span>
                 {/* <button onClick={() => toggleTrack(track)}>
                   {buttonLabel}
                 </button> */}
