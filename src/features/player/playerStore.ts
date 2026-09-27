@@ -50,7 +50,7 @@ export const usePlayerStore = create<Playerstate>((set, get) => ({
 
   addTrack: (newTrack) =>
     set((state) => ({
-      tracks: [...state.tracks, { ...newTrack }],
+      tracks: [{ ...newTrack }, ...state.tracks],
     })), //принимает массив с url и name из fileUploader и вставляет в массив треков tracks[]
 
   setCurrentTrack: (track) =>
