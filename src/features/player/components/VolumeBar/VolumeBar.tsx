@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { Vmute, Volume } from "../../../../shared";
 import { usePlayerStore } from "../../playerStore";
 
 export const VolumeBar = () => {
@@ -8,6 +9,8 @@ export const VolumeBar = () => {
   const setCurrentVolume = usePlayerStore((state) => state.setCurrentVolume);
 
   const [isDragging, setIsDragging] = useState<boolean>(false);
+  const [isMute, setIsMute] = useState<boolean>(false);
+  const currentVolumeRef = useRef<number>(currentVolume || 1);
 
   const updateVolume = useCallback(
     (clientX: number) => {
@@ -26,6 +29,19 @@ export const VolumeBar = () => {
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     setIsDragging(true);
     updateVolume(e.clientX);
+  };
+
+  const toggleMute = () => {
+    if (!isMute) {
+      //мутим
+      currentVolumeRef.current = currentVolume;
+      setIsMute(true);
+      setCurrentVolume(0);
+    } else {
+      //размут
+      setIsMute(false);
+      setCurrentVolume(currentVolumeRef.current || 0.5);
+    }
   };
 
   useEffect(() => {
@@ -48,6 +64,17 @@ export const VolumeBar = () => {
 
   return (
     <div>
+      <button
+        onClick={() => {
+          toggleMute();
+        }}
+      >
+        {isMute || currentVolume === 0 ? (
+          <Vmute width={24} height={24} />
+        ) : (
+          <Volume width={24} height={24} />
+        )}{" "}
+      </button>
       <div style={{ width: "200px" }}>
         <div
           ref={sliderRef}
