@@ -1,0 +1,39 @@
+.navBlock {
+  width: 200px;
+  padding: 15px;
+}
+
+.stroka {
+  position: relative;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 20px;
+
+  &.active {
+    background-color: rgb(23, 23, 23);
+    background-image:
+      linear-gradient(to right, rgba(255, 0, 0, 0.3), transparent 5%),
+      linear-gradient(to top, rgb(0, 0, 0), transparent 3%);
+
+    border-top: 2px solid rgba(247, 245, 246, 0.653);
+    border-radius: 6px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: -15px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 5px;
+      height: 30px;
+      background-color: red;
+      border-top-right-radius: 7px;
+      border-bottom-right-radius: 7px;
+
+      box-shadow:
+        0 0 15px red,
+        0 0 25px rgba(red, 0.9),
+        0 0 40px rgba(red, 0.8);
+    }
+  }
+}

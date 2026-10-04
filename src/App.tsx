@@ -17,16 +17,30 @@ const HomePage: React.FC = () => (
 export const App = () => {
   return (
     <BrowserRouter>
-      <div style={{ paddingBottom: "100px" }}>
-        <SideBar />
-        <PlayerBar />
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          minHeight: "100vh",
+          backgroundColor: "#000" /* или ваш цвет фона */,
+          color: "#fff",
+        }}
+      >
+        {/* Средняя часть: Меню + Контент страниц */}
+        <div style={{ display: "flex", flex: 1 }}>
+          <SideBar />
 
-        <main style={{ padding: "20px" }}>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/register" element={<RegisterPage />} />
-          </Routes>
-        </main>
+          {/* Контент страниц теперь будет СБОКУ от SideBar */}
+          <main style={{ flex: 1, padding: "20px" }}>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/register" element={<RegisterPage />} />
+            </Routes>
+          </main>
+        </div>
+
+        {/* Нижний плеер (будет прижат к низу и не перекроет контент) */}
+        <PlayerBar />
       </div>
     </BrowserRouter>
   );
