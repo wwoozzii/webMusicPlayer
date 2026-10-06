@@ -50,10 +50,9 @@
         rgba(v.$lights-color, 0.2),
         transparent 15%
       );
-      border-top-color: rgb(254, 0, 0);
 
       box-shadow:
-        inset 0 1.5px 3px 0 rgb(249, 249, 249),
+        inset 0 1.5px 3px 0 rgba(249, 249, 249, 0.118),
         inset 0 -1.5px 0 0 rgba(0, 0, 0, 0.663);
 
       &::before {
@@ -69,8 +68,8 @@
         border-bottom-right-radius: 5px;
 
         box-shadow:
-          0 0 15px 1.5px v.$lights-color,
-          0 0 20px rgba(v.$lights-color, 0.9),
+          0 0 20px 1.5px v.$lights-color,
+          0 0 30px rgba(v.$lights-color, 0.9),
           0 0 40px rgba(v.$lights-color, 0.2);
       }
     }
