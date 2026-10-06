@@ -1,39 +1,76 @@
 .navBlock {
   width: 200px;
   padding: 15px;
-}
 
-.stroka {
-  position: relative;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  padding-left: 20px;
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    li {
+      display: block;
+    }
+  }
 
-  &.active {
-    background-color: rgb(23, 23, 23);
-    background-image:
-      linear-gradient(to right, rgba(255, 0, 0, 0.3), transparent 5%),
-      linear-gradient(to top, rgb(0, 0, 0), transparent 3%);
+  .stroka {
+    position: relative;
+    display: block;
+    padding: 7px 16px;
+    border-radius: 7px;
+    color: #a0a0a0;
+    text-decoration: none;
+    background-color: transparent;
+    gap: 12px;
 
-    border-top: 2px solid rgba(247, 245, 246, 0.653);
-    border-radius: 6px;
+    transition: all 0.25s ease;
 
-    &::before {
-      content: "";
-      position: absolute;
-      left: -15px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 5px;
-      height: 30px;
-      background-color: red;
-      border-top-right-radius: 7px;
-      border-bottom-right-radius: 7px;
+    .icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      stroke-width: 2px;
+      opacity: 0.7;
+    }
 
+    &:hover:not(.active) {
+      color: #e0e0e0;
+      background-color: rgba(255, 255, 255, 0.03);
+    }
+
+    &.active {
+      color: #ffffff;
+      background-color: #161616;
+
+      background-image: radial-gradient(
+        circle at left cener,
+        rgba(255, 0, 85, 0.2) 1%,
+        rgba(255, 0, 85, 0.04) 40%,
+        transperent 70%
+      );
+      border-top-color: rgba(255, 255, 255, 0.15);
       box-shadow:
-        0 0 15px red,
-        0 0 25px rgba(red, 0.9),
-        0 0 40px rgba(red, 0.8);
+        inset 0 1.5px 0 0 rgba(255, 255, 255, 0.955),
+        inset 0 -1.5px 0 0 rgba(0, 0, 0, 0.5);
+
+      &::before {
+        content: "";
+        position: absolute;
+        left: -15px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 5px;
+        height: 30px;
+        background-color: #ff0055;
+        border-top-right-radius: 7px;
+        border-bottom-right-radius: 7px;
+
+        box-shadow:
+          0 0 15px #ff0055,
+          0 0 25px rgba(#ff0055, 0.6),
+          0 0 40px rgba(#ff0055, 0.3);
+      }
     }
   }
 }
