@@ -1,0 +1,43 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 29px;
+  height: 29px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: rgb(171, 171, 171);
+
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    color: rgb(255, 255, 255);
+    transform: scale(1.05);
+  }
+  &:active {
+    transform: scale(0.95);
+  }
+
+  svg {
+    width: 29px;
+    height: 29px;
+    fill: currentColor;
+  }
+  &_play {
+    width: 40px;
+    height: 40px;
+    color: rgb(255, 255, 255);
+
+    svg {
+      width: 40px;
+      height: 40px;
+      fill: currentColor;
+    }
+  }
+}

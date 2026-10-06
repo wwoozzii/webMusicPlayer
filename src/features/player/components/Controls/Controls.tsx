@@ -1,5 +1,6 @@
+import { PauseIcon, PlayIcon, SkipNext, SkipPrev } from "../../../../shared";
 import { usePlayerStore } from "../../playerStore";
-
+import s from "./Controls.module.scss";
 export const Controls = () => {
   const togglePlay = usePlayerStore((state) => state.togglePlay);
   const nextTrack = usePlayerStore((state) => state.nextTrack);
@@ -9,13 +10,15 @@ export const Controls = () => {
   //перекдлючение play/start находится в хуке useAudioSync
 
   return (
-    <div>
-      <button onClick={prevTrack} style={{ marginRight: "10px" }}>
-        ⏮ Пред.
+    <div className={s.container}>
+      <button onClick={prevTrack} className={s.btn}>
+        <SkipPrev />
       </button>
-      <button onClick={togglePlay}>{isPlaying ? "⏸ Пауза" : "▶ Играть"}</button>
-      <button onClick={nextTrack} style={{ marginLeft: "10px" }}>
-        ⏭ След.
+      <button onClick={togglePlay} className={`${s.btn} ${s.btn_play}`}>
+        {isPlaying ? <PauseIcon /> : <PlayIcon />}
+      </button>
+      <button onClick={nextTrack} className={s.btn}>
+        <SkipNext />
       </button>
     </div>
   );
