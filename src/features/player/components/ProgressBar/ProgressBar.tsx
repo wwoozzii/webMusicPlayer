@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { usePlayerStore } from "../../playerStore";
 import { formatTime } from "../../utils/formatTime";
+import s from "./ProgressBar.module.scss";
 
 export const ProgressBar = () => {
   const duration = usePlayerStore((state) => state.duration);
@@ -67,75 +68,22 @@ export const ProgressBar = () => {
   }, [isDragging, calculateTimeFromX, seek]);
 
   return (
-    <div
-      className="player-progress-container"
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: "12px",
-        userSelect: "none",
-      }}
-    >
-      {/* 1. Время слева */}
-      <span className="time-display">{formatTime(displayTime)}</span>
-
-      {/* 2. Полоса прогресса */}
+    <div className={s.container}>
+      <span className={s.time}>{formatTime(displayTime)}</span>
       <div
         ref={progressBarRef}
-        className="progress-bar-wrapper"
+        className={s.wrapper}
         onMouseDown={handleMouseDown}
-        style={{
-          position: "relative",
-          flexGrow: 1,
-          height: "16px",
-          width: "200px",
-          display: "flex",
-          alignItems: "center",
-          cursor: "pointer",
-        }}
       >
-        <div
-          className="progress-bar-bg"
-          style={{
-            position: "relative",
-            width: "100%",
-            height: "4px",
-            backgroundColor: "#3e3e3e",
-            borderRadius: "2px",
-          }}
-        >
-          {/* Линия заполнения */}
+        <div className={s.bg}>
+          <div className={s.fill} style={{ width: `${progressPercent}%` }} />
           <div
-            className="progress-bar-fill"
-            style={{
-              width: `${progressPercent}%`,
-              height: "100%",
-              backgroundColor: "#1db954",
-              borderRadius: "2px",
-            }}
-          />
-
-          {/* Ползунок Thumb */}
-          <div
-            className="progress-bar-thumb"
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: `${progressPercent}%`,
-              transform: "translate(-50%, -50%)",
-              width: isDragging ? "14px" : "12px",
-              height: isDragging ? "14px" : "12px",
-              backgroundColor: "#ffffff",
-              borderRadius: "50%",
-              boxShadow: "0 2px 4px rgba(0,0,0,0.5)",
-              transition: isDragging ? "none" : "width 0.1s, height 0.1s",
-            }}
+            className={`${s.thumb} ${isDragging ? s.dragging : ""}`}
+            style={{ left: `${progressPercent}%` }}
           />
         </div>
       </div>
-
-      {/* 3. Длительность справа */}
-      <span className="time-display">{formatTime(duration)}</span>
+      <span className={s.time}>{formatTime(duration)}</span>
     </div>
   );
 };
