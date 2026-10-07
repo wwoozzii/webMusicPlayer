@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Vmute, Volume } from "../../../../shared";
 import { usePlayerStore } from "../../playerStore";
+import s from "./VolumeBar.module.scss";
 
 export const VolumeBar = () => {
   const sliderRef = useRef<HTMLDivElement>(null);
@@ -11,6 +12,7 @@ export const VolumeBar = () => {
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [isMute, setIsMute] = useState<boolean>(false);
   const currentVolumeRef = useRef<number>(currentVolume || 1);
+  const progressPercent = currentVolume > 0 ? (currentVolume / 1.0) * 100 : 0;
 
   const updateVolume = useCallback(
     (clientX: number) => {
@@ -63,39 +65,27 @@ export const VolumeBar = () => {
   }, [isDragging, updateVolume]);
 
   return (
-    <div>
+    <div className={s.container}>
       <button
+        className={s.btn}
         onClick={() => {
           toggleMute();
         }}
       >
-        {isMute || currentVolume === 0 ? (
-          <Vmute width={24} height={24} />
-        ) : (
-          <Volume width={24} height={24} />
-        )}{" "}
+        {isMute || currentVolume === 0 ? <Vmute /> : <Volume />}
       </button>
-      <div style={{ width: "200px" }}>
-        <div
-          ref={sliderRef}
-          style={{
-            height: "10px",
-            background: "#ccc",
-            cursor: "pointer",
-            position: "relative",
-            userSelect: "none",
-          }}
-          onMouseDown={handleMouseDown}
-        >
+      <div className={s.slider} ref={sliderRef} onMouseDown={handleMouseDown}>
+        <div className={s.bg}>
           <div
-            style={{
-              width: `${currentVolume * 100}%`,
-              height: "100%",
-              background: "black",
-            }}
+            className={s.fill}
+            style={{ width: `${currentVolume * 100}%` }}
+          />
+          <div
+            className={`${s.thumb} ${isDragging ? s.dragging : ""}`}
+            style={{ left: `${progressPercent}%` }}
           />
         </div>
-        <span>{Math.round(currentVolume * 100)}%</span>
+        {/* <span className={s.volume}>{Math.round(currentVolume * 100)}%</span> */}
       </div>
     </div>
   );
