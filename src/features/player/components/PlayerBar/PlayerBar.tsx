@@ -7,7 +7,7 @@ import { Controls } from "../Controls/Controls";
 import { ProgressBar } from "../ProgressBar/ProgressBar";
 import { TrackInfo } from "../TrackInfo/TrackInfo";
 import { VolumeBar } from "../VolumeBar/VolumeBar";
-import { Waveform } from "../waveform/Waveform";
+// import { Waveform } from "../waveform/Waveform";
 
 export const PlayerBar = () => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -51,9 +51,10 @@ export const PlayerBar = () => {
         onEnded={handleTrackEnded}
       />
 
-      <div style={{ flex: 1 }}>
+      {/*TODO: возможно позже вернуть блок волны (12.10.26) */}
+      {/* <div style={{ flex: 1 }}>
         <Waveform audioRef={audioRef} />
-      </div>
+      </div> */}
 
       <div
         style={{
