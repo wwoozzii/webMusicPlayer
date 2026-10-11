@@ -7,6 +7,7 @@ import { Controls } from "../Controls/Controls";
 import { ProgressBar } from "../ProgressBar/ProgressBar";
 import { TrackInfo } from "../TrackInfo/TrackInfo";
 import { VolumeBar } from "../VolumeBar/VolumeBar";
+import s from "./PlayerBar.module.scss";
 // import { Waveform } from "../waveform/Waveform";
 
 export const PlayerBar = () => {
@@ -21,72 +22,55 @@ export const PlayerBar = () => {
 
   if (!currentTrack) return null;
 
+  const handleaudio = (e: React.SyntheticEvent<HTMLAudioElement, Event>) => {
+    const audioLength = e.currentTarget.duration;
+
+    if (!isNaN(audioLength)) {
+      setDuration(audioLength);
+    }
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+    }
+
+    setCurrentTime(0);
+  };
+  const handletimeup = (e: React.SyntheticEvent<HTMLAudioElement, Event>) => {
+    const currentSeconds = e.currentTarget.currentTime;
+    setCurrentTime(currentSeconds);
+  };
+
   return (
-    <div
-      style={{
-        position: "fixed",
-        bottom: 0,
-        left: 0,
-        right: 0,
-        background: "#222",
-        color: "#fff",
-        padding: "20px",
-        display: "flex",
-        flexDirection: "column",
-        gap: "15px",
-      }}
-    >
+    <div className={s.container}>
       <audio
         ref={audioRef}
         src={currentTrack?.url}
-        onLoadedMetadata={(e) => {
-          const audioLength = e.currentTarget.duration;
-          setCurrentTime(0);
-          setDuration(audioLength);
-        }}
-        onTimeUpdate={(e) => {
-          const currentSeconds = e.currentTarget.currentTime;
-          setCurrentTime(currentSeconds);
-        }}
+        onLoadedMetadata={handleaudio}
+        onTimeUpdate={handletimeup}
         onEnded={handleTrackEnded}
       />
 
       {/*TODO: возможно позже вернуть блок волны (12.10.26) */}
-      {/* <div style={{ flex: 1 }}>
+      {/* <div>
         <Waveform audioRef={audioRef} />
       </div> */}
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          width: "100%",
-        }}
-      >
-        <div style={{ flex: "1", minWidth: "150px" }}>
+      <div className={s.wrapper}>
+        <div className={s.trackinfo}>
           <TrackInfo />
         </div>
 
-        <div
-          style={{
-            flex: "1",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Controls />
+        <div className={s.centerWrapper}>
+          <div className={s.controls}>
+            <Controls />
+          </div>
+          <div className={s.progressbar}>
+            <ProgressBar />
+          </div>
         </div>
 
-        <div style={{ flex: "1", display: "flex", justifyContent: "flex-end" }}>
+        <div className={s.volumebar}>
           <VolumeBar />
         </div>
-      </div>
-
-      <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
-        <ProgressBar />
-        <div style={{ color: "#555", fontSize: "12px" }}></div>
       </div>
     </div>
   );
