@@ -3,7 +3,7 @@
 .container {
   position: fixed;
   display: flex;
-  background: rgb(20, 20, 20);
+  background: v.$PlayerBar-bg-color;
   color: #fff;
   flex-direction: column;
   gap: 10px;
