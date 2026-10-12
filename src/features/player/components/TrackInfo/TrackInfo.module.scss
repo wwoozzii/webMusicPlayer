@@ -1,4 +1,4 @@
-@use "../../../../styles/variabless" as v;
+// @use "../../../../styles/variabless" as v;
 
 .container {
   display: flex;
@@ -23,5 +23,5 @@
 }
 .author {
   font-size: 14px;
-  color: v.$author-color;
+  color: var(--author-color);
 }

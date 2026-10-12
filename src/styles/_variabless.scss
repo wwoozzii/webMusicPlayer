@@ -2,17 +2,18 @@
   --font-main: "Geist Pixel", sans-serif;
   --bg-color: rgb(0, 0, 0);
   --text-color: #e5e5e5;
+
+  //sideBar:
+  --SideBar-bg-color: rgb(30, 30, 30);
+  --lights-color: 0, 89, 255;
+  //playerBar
+  --PlayerBar-bg-color: rgb(26, 26, 26);
+
+  //volumeBar + progressBar
+  --thumb-bg: rgb(154, 154, 154);
+  --fill-color: rgb(0, 41, 226);
+  --bg-color: rgb(100, 100, 100);
+
+  //trackInfo:
+  --author-color: rgba(255, 255, 255, 0.701);
 }
-//sideBar:
-$lights-color: rgb(0, 89, 255);
-
-//playerBar
-$PlayerBar-bg-color: rgb(26, 26, 26);
-
-//slider
-$thumb-bg: rgb(154, 154, 154);
-$fill-color: rgb(0, 41, 226);
-$bg-color: rgb(100, 100, 100);
-
-//trackInfo:
-$author-color: rgba(255, 255, 255, 0.701);

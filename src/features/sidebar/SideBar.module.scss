@@ -1,8 +1,7 @@
-@use "../../styles/variabless" as v;
-
 .navBlock {
   width: 200px;
   padding: 15px;
+  background: var(--SideBar-bg-color);
 
   ul {
     list-style: none;
@@ -47,7 +46,7 @@
 
       background-image: radial-gradient(
         circle at left center,
-        rgba(v.$lights-color, 0.2),
+        rgba(var(--lights-color), 0.2),
         transparent 15%
       );
 
@@ -63,14 +62,14 @@
         transform: translateY(-50%);
         width: 4px;
         height: 24px;
-        background-color: v.$lights-color;
+        background-color: rgba(var(--lights-color), 0.7);
         border-top-right-radius: 5px;
         border-bottom-right-radius: 5px;
 
         box-shadow:
-          0 0 20px 1.5px v.$lights-color,
-          0 0 30px rgba(v.$lights-color, 0.9),
-          0 0 40px rgba(v.$lights-color, 0.2);
+          0 0 20px 1.5px rgba(var(--lights-color), 0.8),
+          0 0 30px rgba(var(--lights-color), 0.6),
+          0 0 40px rgba(var(--lights-color), 0.2);
       }
     }
   }

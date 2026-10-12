@@ -1,9 +1,9 @@
-@use "../../../../styles/variabless" as v;
+// @use "../../../../styles/variabless" as v;
 
 .container {
   position: fixed;
   display: flex;
-  background: v.$PlayerBar-bg-color;
+  background: var(--PlayerBar-bg-color);
   color: #fff;
   flex-direction: column;
   gap: 10px;
