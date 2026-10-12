@@ -1,12 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Geist+Pixel&display=swap");
-
-:root {
-  --font-main: "Geist Pixel", sans-serif;
-  //   --bg-color: #121212;
-  --bg-color: rgb(0, 0, 0);
-
-  --text-color: #e5e5e5;
-}
+@import "./styles/variabless";
 
 *,
 *::before,
