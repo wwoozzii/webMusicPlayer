@@ -26,9 +26,8 @@ export const App = () => {
           color: "#fff",
         }}
       >
+        <Navigation />
         <div style={{ display: "flex", flex: 1 }}>
-          <Navigation />
-
           <main style={{ flex: 1, padding: "20px" }}>
             <Routes>
               <Route path="/" element={<HomePage />} />
