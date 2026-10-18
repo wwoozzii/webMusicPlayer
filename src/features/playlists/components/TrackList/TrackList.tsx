@@ -1,3 +1,4 @@
+import coverHorse from "../../../../assets/cover.jpg";
 import { usePlayerStore } from "../../../player/playerStore";
 import { formatTime } from "../../../player/utils/formatTime";
 import s from "./TrackList.module.scss";
@@ -15,7 +16,6 @@ export const TrackList = () => {
       <ul>
         {tracks.map((track) => {
           const isCurrent = currentTrack?.id === track.id;
-          const buttonLabel = isCurrent && isPlaying ? "⏸ Pause" : "▶ Play";
           const trackTime =
             isCurrent && isPlaying ? currentTime : track.duration;
 
@@ -25,12 +25,10 @@ export const TrackList = () => {
                 className={`${s.stroka} ${isPlaying && isCurrent ? s.active : ""}`}
                 onClick={() => toggleTrack(track)}
               >
+                <img src={coverHorse} className={s.cover}></img>
                 <span>{`${track.name}`}</span>
                 <span>{`${track.author}`}</span>
                 <span>{`${formatTime(trackTime)}`}</span>
-                {/* <button onClick={() => toggleTrack(track)}>
-                  {buttonLabel}
-                </button> */}
               </div>
             </li>
           );
