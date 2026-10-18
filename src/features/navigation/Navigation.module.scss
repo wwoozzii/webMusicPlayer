@@ -1,5 +1,8 @@
 .navBlock {
-  //   background: var(--SideBar-bg-color);
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background: black;
   padding-left: 20px;
 
   ul {
