@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { Home, Login } from "../../shared";
-import s from "./SideBar.module.scss";
+import s from "./Navigation.module.scss";
 
 const NAV_ITEMS = [
   { path: "/", label: "Home", icon: Home },
@@ -8,7 +8,7 @@ const NAV_ITEMS = [
   { path: "/register", label: "register", icon: Login },
 ];
 
-export const SideBar = () => {
+export const Navigation = () => {
   const location = useLocation();
 
   return (

@@ -1,10 +1,10 @@
 // src/App.tsx
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Navigation } from "./features/navigation/Navigation";
 import { PlayerBar } from "./features/player/components/PlayerBar/PlayerBar";
 import { FileUploader } from "./features/playlists/components/FileUploader/FileUploader";
 import { TrackList } from "./features/playlists/components/TrackList/TrackList";
-import { SideBar } from "./features/sidebar/SideBar";
 import { RegisterPage } from "./pages/RegisterPage/RegisterPage";
 
 const HomePage: React.FC = () => (
@@ -22,15 +22,13 @@ export const App = () => {
           display: "flex",
           flexDirection: "column",
           minHeight: "100vh",
-          backgroundColor: "#000" /* или ваш цвет фона */,
+          backgroundColor: "#000",
           color: "#fff",
         }}
       >
-        {/* Средняя часть: Меню + Контент страниц */}
         <div style={{ display: "flex", flex: 1 }}>
-          <SideBar />
+          <Navigation />
 
-          {/* Контент страниц теперь будет СБОКУ от SideBar */}
           <main style={{ flex: 1, padding: "20px" }}>
             <Routes>
               <Route path="/" element={<HomePage />} />
@@ -39,7 +37,6 @@ export const App = () => {
           </main>
         </div>
 
-        {/* Нижний плеер (будет прижат к низу и не перекроет контент) */}
         <PlayerBar />
       </div>
     </BrowserRouter>
