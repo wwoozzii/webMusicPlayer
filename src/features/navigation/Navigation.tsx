@@ -22,7 +22,7 @@ export const Navigation = () => {
               <li key={item.path}>
                 <Link to={item.path}>
                   <div className={`${s.stroka} ${isActive ? s.active : ""}`}>
-                    <Icon className={s.icon} />
+                    {/* <Icon className={s.icon} /> */}
                     <span>{item.label}</span>
                   </div>
                 </Link>
