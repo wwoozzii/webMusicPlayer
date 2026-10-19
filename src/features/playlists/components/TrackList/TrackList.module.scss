@@ -15,6 +15,10 @@
     background-color: white;
     color: black;
   }
+
+  &:hover:not(.active) {
+    background-color: rgb(10, 10, 10);
+  }
 }
 
 .cover {
