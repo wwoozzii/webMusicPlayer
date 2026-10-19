@@ -3,7 +3,6 @@
 .container {
   display: flex;
   align-items: center;
-  gap: 5px;
 }
 
 .cover {
@@ -16,6 +15,7 @@
 .textContainer {
   display: flex;
   flex-direction: column;
+  padding-left: 21px;
 }
 
 .name {
