@@ -22,7 +22,7 @@ export const TrackList = () => {
           return (
             <li key={track.id} className={s.line}>
               <div
-                className={`${s.stroka} ${isPlaying && isCurrent ? s.active : ""}`}
+                className={`${s.stroka} ${isCurrent ? s.active : ""}`}
                 onClick={() => toggleTrack(track)}
               >
                 <img src={coverHorse} className={s.cover}></img>
