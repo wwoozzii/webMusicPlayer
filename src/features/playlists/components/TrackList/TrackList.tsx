@@ -16,8 +16,7 @@ export const TrackList = () => {
       <ul>
         {tracks.map((track) => {
           const isCurrent = currentTrack?.id === track.id;
-          const trackTime =
-            isCurrent && isPlaying ? currentTime : track.duration;
+          const trackTime = isCurrent ? currentTime : track.duration;
 
           return (
             <li key={track.id} className={s.line}>
