@@ -17,6 +17,7 @@ interface Track {
   author: string;
   url: string;
   duration: number;
+  cover: string;
 }
 
 interface Playerstate {
