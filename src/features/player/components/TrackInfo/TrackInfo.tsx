@@ -8,7 +8,7 @@ export const TrackInfo = () => {
 
   return (
     <div className={s.container}>
-      {/* <img src={} className={s.cover} /> */}
+      <img src={currentTrack.cover} className={s.cover} />
 
       <div className={s.textContainer}>
         <strong className={s.name}>{`${currentTrack.name}`}</strong>
