@@ -2,14 +2,15 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Navigation } from "./features/navigation/Navigation";
+import { Search } from "./features/navigation/Search/Search";
 import { PlayerBar } from "./features/player/components/PlayerBar/PlayerBar";
-import { FileUploader } from "./features/playlists/components/FileUploader/FileUploader";
 import { TrackList } from "./features/playlists/components/TrackList/TrackList";
 import { RegisterPage } from "./pages/RegisterPage/RegisterPage";
 
 const HomePage: React.FC = () => (
   <div>
-    <FileUploader />
+    <Search />
+    {/* <FileUploader /> */}
     <TrackList />
   </div>
 );
