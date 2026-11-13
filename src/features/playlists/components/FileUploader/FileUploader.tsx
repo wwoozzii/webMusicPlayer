@@ -12,7 +12,7 @@ export const FileUploader = () => {
 
   const addTrack = usePlayerStore((state) => state.addTrack);
 
-  const { parseAudioFile } = useAudioParser(defCover);
+  const { parseAudioFile, isParsing } = useAudioParser(defCover);
   const [parsedTrack, setParsedTrack] = useState<ParsedTrack | null>(null);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,11 +56,13 @@ export const FileUploader = () => {
         type="text"
         value={trackName}
         onChange={(e) => setTrackName(e.target.value)}
+        placeholder={parsedTrack?.name || "Select a track"}
       />
       <input
         type="text"
         value={trackAuthor}
         onChange={(e) => setTrackAuthor(e.target.value)}
+        placeholder={parsedTrack?.author || "Select a track"}
       />
       <button onClick={handleAddButton}>ДОБАВИТЬ</button>
     </div>
