@@ -38,7 +38,7 @@ export const FileUploader = () => {
       id: crypto.randomUUID(),
       url: trackUrl,
       name: formatLongText(finalName, 30),
-      author: trackAuthor ?? formatLongText(finalAuthor, 30),
+      author: formatLongText(finalAuthor, 30),
       duration: duration,
       cover: coverUrl,
     });
